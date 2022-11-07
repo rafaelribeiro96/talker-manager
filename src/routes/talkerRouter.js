@@ -59,9 +59,6 @@ tokenValidate,
 async (req, res) => {
   const { id } = req.params;
   await deleteTalker(id);
-  /* const talkers = await readFile();
-  const newTalkerFile = talkers.filter((talker) => talker.id !== Number(id));
-  await writeFile(newTalkerFile); */
   res.status(204).end();
 });
 
