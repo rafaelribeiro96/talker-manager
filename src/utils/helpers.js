@@ -22,8 +22,15 @@ const updateTalker = async (data, id) => {
   return talkers[index];
 };
 
+const deleteTalker = async (id) => {
+  const talkers = await readFile();
+  const newTalkers = talkers.filter((talker) => talker.id !== Number(id));
+  await writeFile(newTalkers);
+};
+
 module.exports = {
   readFile,
   writeFile,
   updateTalker,
+  deleteTalker,
 };

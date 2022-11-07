@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { readFile, writeFile, updateTalker } = require('../utils/helpers');
+const { readFile, writeFile, updateTalker, deleteTalker } = require('../utils/helpers');
 
 const ageValidate = require('../middlewares/ageValidate');
 const nameValidate = require('../middlewares/nameValidate');
@@ -52,6 +52,17 @@ tokenValidate,
   const { id } = req.params;
   const edited = await updateTalker(req.body, Number(id));
   res.status(200).json(edited);
+});
+
+talkerRouter.delete('/:id',
+tokenValidate,
+async (req, res) => {
+  const { id } = req.params;
+  await deleteTalker(id);
+  /* const talkers = await readFile();
+  const newTalkerFile = talkers.filter((talker) => talker.id !== Number(id));
+  await writeFile(newTalkerFile); */
+  res.status(204).end();
 });
 
 module.exports = talkerRouter;
