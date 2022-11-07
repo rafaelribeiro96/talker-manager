@@ -14,6 +14,15 @@ const talkerRouter = express();
 talkerRouter.get('/', async (_req, res) => 
 res.status(200).json(await readFile()));
 
+talkerRouter.get('/search',
+tokenValidate, 
+async (req, res) => {
+  const { q } = req.query;
+  const talkers = await readFile();
+  const talkerFilter = talkers.filter((talker) => talker.name.includes(q));
+  res.status(200).json(talkerFilter);
+});
+
 talkerRouter.get('/:id', async (req, res) => {
   const { id } = req.params;
   const dataFile = await readFile();
