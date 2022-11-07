@@ -1,4 +1,4 @@
-const validateEmail = (req, res, next) => {
+const emailValidate = (req, res, next) => {
   const { email } = req.body;
   if (!email || email.length === 0) {
     return res.status(400).json({ message: 'O campo "email" é obrigatório' });
@@ -10,7 +10,7 @@ const validateEmail = (req, res, next) => {
   next();
 };
 
-const validatePassword = (req, res, next) => {
+const passwordValidate = (req, res, next) => {
   const { password } = req.body;
   if (!password) {
     return res.status(400).json({ message: 'O campo "password" é obrigatório' });
@@ -22,6 +22,6 @@ const validatePassword = (req, res, next) => {
 };
 
 module.exports = {
-  validateEmail,
-  validatePassword,
+  emailValidate,
+  passwordValidate,
 };
