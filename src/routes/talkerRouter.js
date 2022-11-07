@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { readFile, writeFile } = require('../utils/helpers');
+const { readFile, writeFile, updateTalker } = require('../utils/helpers');
 
 const ageValidate = require('../middlewares/ageValidate');
 const nameValidate = require('../middlewares/nameValidate');
@@ -39,6 +39,19 @@ talkerRouter.post('/',
   talkers.push(newTalker);
   await writeFile(talkers);
   res.status(201).json(newTalker);
+});
+
+talkerRouter.put('/:id',
+tokenValidate,
+  nameValidate,
+  ageValidate,  
+  talkerValidate,
+  watchedAtValidate,
+  rateValidate,
+   async (req, res) => {
+  const { id } = req.params;
+  const edited = await updateTalker(req.body, Number(id));
+  res.status(200).json(edited);
 });
 
 module.exports = talkerRouter;
